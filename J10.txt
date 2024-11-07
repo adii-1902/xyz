@@ -1,0 +1,24 @@
+const prompt = require('prompt-sync')();
+const number = parseInt(prompt('Enter a number to generate its multiplication table: '));
+
+// for loop
+console.log(`\nMultiplication table of ${number} using for loop:`);
+for (let i = 1; i <= 10; i++) {
+    console.log(`${number} x ${i} = ${number * i}`);
+}
+
+// while loop
+console.log(`\nMultiplication table of ${number} using while loop:`);
+let i = 1;
+while (i <= 10) {
+    console.log(`${number} x ${i} = ${number * i}`);
+    i++;
+}
+
+// do-while loop
+console.log(`\nMultiplication table of ${number} using do-while loop:`);
+i = 1;
+do {
+    console.log(`${number} x ${i} = ${number * i}`);
+    i++;
+} while (i <= 10);

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Area Calculator</h1>
+        <div class="form-group">
+            <label for="shape">Choose a shape:</label>
+            <select id="shape">
+                <option value="triangle">Triangle</option>
+                <option value="circle">Circle</option>
+                <option value="rectangle">Rectangle</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dimension1">Dimension 1:</label>
+            <input type="number" id="dimension1" min="0">
+            <div id="dim1-error" class="error"></div>
+        </div>
+        <div class="form-group" id="dimension2-container">
+            <label for="dimension2">Dimension 2:</label>
+            <input type="number" id="dimension2" min="0">
+            <div id="dim2-error" class="error"></div>
+        </div>
+        <div class="form-group" id="dimension3-container">
+            <label for="dimension3">Dimension 3:</label>
+            <input type="number" id="dimension3" min="0">
+            <div id="dim3-error" class="error"></div>
+        </div>
+        <button onclick="calculateArea()">Calculate Area</button>
+        <button onclick="resetForm()" style="background-color: #f44336;">Reset</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function validateInput(id, errorId) {
+            const value = document.getElementById(id).value;
+            const errorDiv = document.getElementById(errorId);
+            if (value === '' || value < 0) {
+                errorDiv.innerText = "Please enter a value greater than or equal to 0.";
+                return false;
+            } else {
+                errorDiv.innerText = "";
+                return true;
+            }
+        }
+
+        function calculateArea() {
+            const shape = document.getElementById('shape').value;
+            const dimension1 = parseFloat(document.getElementById('dimension1').value);
+            const dimension2 = parseFloat(document.getElementById('dimension2').value);
+            const dimension3 = parseFloat(document.getElementById('dimension3').value);
+
+            if (!validateInput('dimension1', 'dim1-error') ||
+                (shape !== 'circle' && !validateInput('dimension2', 'dim2-error')) ||
+                (shape === 'triangle' && !validateInput('dimension3', 'dim3-error'))) {
+                return;
+            }
+
+            let area;
+
+            if (shape === 'triangle') {
+                const a = dimension1;
+                const b = dimension2;
+                const c = dimension3;
+                const s = (a + b + c) / 2; // semi-perimeter
+                area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+            } else if (shape === 'circle') {
+                area = Math.PI * Math.pow(dimension1, 2);
+            } else if (shape === 'rectangle') {
+                area = dimension1 * dimension2;
+            } else {
+                alert("Unknown shape.");
+                return;
+            }
+
+            document.getElementById('result').innerText = `The area of the ${shape} is: ${area.toFixed(2)}`;
+        }
+
+        function resetForm() {
+            document.getElementById('dimension1').value = '';
+            document.getElementById('dimension2').value = '';
+            document.getElementById('dimension3').value = '';
+            document.getElementById('dim1-error').innerText = '';
+            document.getElementById('dim2-error').innerText = '';
+            document.getElementById('dim3-error').innerText = '';
+            document.getElementById('result').innerText = '';
+            document.getElementById('shape').value = 'triangle';
+            document.getElementById('shape').dispatchEvent(new Event('change'));
+        }
+
+        document.getElementById('shape').addEventListener('change', function () {
+            const shape = this.value;
+            const dimension2Container = document.getElementById('dimension2-container');
+            const dimension3Container = document.getElementById('dimension3-container');
+            if (shape === 'circle') {
+                dimension2Container.style.display = 'none';
+                dimension3Container.style.display = 'none';
+            } else if (shape === 'triangle') {
+                dimension2Container.style.display = 'block';
+                dimension3Container.style.display = 'block';
+            } else {
+                dimension2Container.style.display = 'block';
+                dimension3Container.style.display = 'none';
+            }
+        });
+
+        document.getElementById('shape').dispatchEvent(new Event('change'));
+    </script>
+</body>
+
+</html>

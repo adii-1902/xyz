@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array of Objects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .reset-btn {
+            background-color: red;
+        }
+
+        .reset-btn:hover {
+            background-color: darkred;
+        }
+
+        p {
+            font-size: 1em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Array of Objects</h1>
+
+        <label for="arraySize">Enter the size of the Array:</label>
+        <input type="number" id="arraySize" placeholder="Size of the Array">
+
+        <label for="addObject">Enter the Object (JSON format):</label>
+        <input type="text" id="addObject" placeholder="Enter Object">
+        <button onclick="addToArray()">Add</button>
+
+        <label for="checkObject">Check if the value at index is an Array:</label>
+        <input type="number" id="checkObject" placeholder="Enter Index of the Array">
+        <button onclick="checkObject()">Check</button>
+
+        <h3>Results:</h3>
+        <p id="ans"></p>
+        <p id="array"></p>
+
+        <h3>Current Array:</h3>
+        <p id="arrayDisplay"></p>
+
+        <button class="reset-btn" onclick="resetFields()">Reset</button>
+    </div>
+
+    <script src="Exp7.js"></script>
+</body>
+
+</html>
+
+
+
+
+let arr = [];
+let n = 0;
+
+function addToArray() {
+    const n = document.getElementById("arraySize").value;
+    const element = document.getElementById("addObject").value;
+
+    if (arr.length < n) {
+        try {
+            let obj = JSON.parse(element);
+            arr.push(JSON.stringify(obj));
+            document.getElementById("arrayDisplay").innerText = `Array: [${arr.join(", ")}]`;
+            document.getElementById("ans").innerText = "";
+        } catch (error) {
+            document.getElementById("ans").innerText = "Invalid object format. Use JSON format.";
+        }
+    } else {
+        document.getElementById("arrayDisplay").innerText = `Array is Filled`;
+    }
+}
+
+function checkObject() {
+    let element = document.getElementById("checkObject").value;
+    const size = document.getElementById("arraySize").value;
+
+    if (element >= size || element < 0 || element >= arr.length) {
+        document.getElementById("array").innerText = `Index out of Bound`;
+    } else {
+        let val = JSON.parse(arr[element]);
+        document.getElementById("array").innerText = Array.isArray(val) ? `Value at index ${element} is an Array` : `Value at index ${element} is not an Array`;
+    }
+}
+
+function resetFields() {
+    document.getElementById("arraySize").value = '';
+    document.getElementById("addObject").value = '';
+    document.getElementById("checkObject").value = '';
+    document.getElementById("ans").innerText = '';
+    document.getElementById("array").innerText = '';
+    document.getElementById("arrayDisplay").innerText = '';
+    arr = [];
+}

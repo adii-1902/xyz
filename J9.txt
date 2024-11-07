@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            width: 300px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Student Information Form</h1>
+        <form onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter Name"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" placeholder="Enter Address"><br>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" placeholder="Enter City"><br>
+
+            <label for="state">State:</label>
+            <input type="text" id="state" placeholder="Enter State"><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" id="mobile" placeholder="Enter Mobile Number"><br>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" placeholder="Enter Email Id"><br>
+
+            <button type="submit">Submit</button>
+            <button type="button" style="background-color: red;" onclick="resetForm()">Reset</button>
+        </form>
+    </div>
+    <script src="Exp9.js"></script>
+</body>
+
+</html>
+
+
+function validateForm() {
+    const name = document.getElementById("name").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const gender = document.getElementById("gender").value;
+    const mobile = document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!name || !address || !city || !state || !gender || !mobile || !email) {
+        alert("Please fill all fields.");
+        return false;
+    }
+
+    const namePattern = /^[a-zA-Z\s]+$/;
+    if (!namePattern.test(name)) {
+        alert("Invalid name. Only letters and spaces are allowed.");
+        return false;
+    }
+
+    const mobilePattern = /^[0-9]{10}$/;
+    if (!mobilePattern.test(mobile)) {
+        alert("Invalid mobile number. Must be 10 digits.");
+        return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert("Invalid email address.");
+        return false;
+    }
+
+    alert("Congratulations! Form submitted successfully. Welcome!");
+    return true;
+}
+
+function resetForm() {
+    document.getElementById("name").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("city").value = "";
+    document.getElementById("state").value = "";
+    document.getElementById("gender").selectedIndex = 0;
+    document.getElementById("mobile").value = "";
+    document.getElementById("email").value = "";
+}

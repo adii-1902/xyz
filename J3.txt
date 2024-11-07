@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        #replaceResult,
+        #palindromeResult,
+        #reverseResult {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>String Operations</h2>
+
+        <!-- First Parameter: String Length and Replace -->
+        <label for="inputString">Enter a string:</label>
+        <input type="text" id="inputString" placeholder="Enter your string">
+
+        <label for="replaceChar">Character to Replace:</label>
+        <input type="text" id="replaceChar" placeholder="Character to replace">
+
+        <label for="withChar">Replace With:</label>
+        <input type="text" id="withChar" placeholder="Replace with">
+
+        <button onclick="replaceCharacter()">Replace Character</button>
+        <p id="replaceResult"></p>
+
+        <!-- Reverse String -->
+        <button onclick="reverseString()">Reverse String</button>
+        <p id="reverseResult"></p>
+
+        <!-- Palindrome Check -->
+        <label for="palindromeString">Check for Palindrome:</label>
+        <input type="text" id="palindromeString" placeholder="Enter string to check">
+        <button onclick="checkPalindrome()">Check Palindrome</button>
+        <p id="palindromeResult"></p>
+
+        <!-- Reset Button -->
+        <button style="background-color: red;" onclick="resetFields()">Reset</button>
+    </div>
+
+    <script src="Exp3.js"></script>
+</body>
+
+</html>
+
+
+
+function replaceCharacter() {
+    let inputStr = document.getElementById('inputString').value;
+    let charToReplace = document.getElementById('replaceChar').value;
+    let replaceWith = document.getElementById('withChar').value;
+
+    if (inputStr && charToReplace && replaceWith) {
+        let result = inputStr.replaceAll(charToReplace, replaceWith);
+        document.getElementById('replaceResult').innerText = `Replaced String: ${result}`;
+    } else {
+        document.getElementById('replaceResult').innerText = "Please provide valid input.";
+    }
+}
+
+
+function checkPalindrome() {
+    let inputStr = document.getElementById('palindromeString').value;
+    let reversedStr = inputStr.split('').reverse().join('');
+
+    if (inputStr && inputStr === reversedStr) {
+        document.getElementById('palindromeResult').innerText = "The string is a palindrome.";
+    } else {
+        document.getElementById('palindromeResult').innerText = "The string is not a palindrome.";
+    }
+}
+
+function reverseString() {
+    let inputStr = document.getElementById('inputString').value;
+    if (inputStr) {
+        let reversedStr = inputStr.split('').reverse().join('');
+        document.getElementById('reverseResult').innerText = `Reversed String: ${reversedStr}`;
+    } else {
+        document.getElementById('reverseResult').innerText = "Please enter a valid string.";
+    }
+}
+
+function replaceWithoutStandardMethods() {
+    let inputStr = document.getElementById('inputString').value;
+    let charToReplace = document.getElementById('replaceChar').value;
+    let replaceWith = document.getElementById('withChar').value;
+
+    if (inputStr && charToReplace && replaceWith) {
+        let result = '';
+        for (let i = 0; i < inputStr.length; i++) {
+            if (inputStr[i] === charToReplace) {
+                result += replaceWith;
+            } else {
+                result += inputStr[i];
+            }
+        }
+        document.getElementById('replaceResult').innerText = `Replaced String (No Methods): ${result}`;
+    } else {
+        document.getElementById('replaceResult').innerText = "Please provide valid input.";
+    }
+}
+
+function checkPalindromeWithoutMethods() {
+    let inputStr = document.getElementById('palindromeString').value;
+    let reversedStr = '';
+    for (let i = inputStr.length - 1; i >= 0; i--) {
+        reversedStr += inputStr[i];
+    }
+
+    if (inputStr && inputStr === reversedStr) {
+        document.getElementById('palindromeResult').innerText = "The string is a palindrome (No Methods).";
+    } else {
+        document.getElementById('palindromeResult').innerText = "The string is not a palindrome (No Methods).";
+    }
+}
+
+function reverseWithoutStandardMethods() {
+    let inputStr = document.getElementById('inputString').value;
+    let reversedStr = '';
+    for (let i = inputStr.length - 1; i >= 0; i--) {
+        reversedStr += inputStr[i];
+    }
+    document.getElementById('reverseResult').innerText = `Reversed String (No Methods): ${reversedStr}`;
+}
+
+function resetFields() {
+    document.getElementById('inputString').value = '';
+    document.getElementById('replaceChar').value = '';
+    document.getElementById('withChar').value = '';
+    document.getElementById('palindromeString').value = '';
+
+    document.getElementById('replaceResult').innerText = '';
+    document.getElementById('reverseResult').innerText = '';
+    document.getElementById('palindromeResult').innerText = '';
+}

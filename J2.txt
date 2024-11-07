@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .input-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container label,
+        .input-container input {
+            display: block;
+            margin: 10px auto;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 30%;
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center;">Multiplication Table</h1>
+
+    <div class="input-container">
+        <label for="doWhileInput">Enter a number for do-while loop: </label>
+        <input type="number" id="doWhileInput" value="7">
+
+        <label for="forLoopInput">Enter a number for for loop: </label>
+        <input type="number" id="forLoopInput" value="9">
+
+        <label for="whileLoopInput">Enter a number for while loop: </label>
+        <input type="number" id="whileLoopInput" value="4">
+
+        <button onclick="generateTables()">Generate Tables</button>
+        <button onclick="resetForm()" style="background-color: #f44336; color: white;">Reset</button>
+    </div>
+
+    <div class="table-container">
+        <div id="doWhileTable" class="table"></div>
+        <div id="forLoopTable" class="table"></div>
+        <div id="whileLoopTable" class="table"></div>
+    </div>
+
+    <script>
+        function generateTables() {
+            var length = 10;
+
+            // do-while loop table
+            var tableDoWhile = parseInt(document.getElementById('doWhileInput').value);
+            var i = 1;
+            var doWhileContent = "<h3>Do-While Table: " + tableDoWhile + "</h3>";
+            do {
+                doWhileContent += i + " * " + tableDoWhile + " = " + (i * tableDoWhile) + "<br>";
+                i++;
+            } while (i <= length);
+            document.getElementById('doWhileTable').innerHTML = doWhileContent;
+
+            // for-loop table
+            var tableForLoop = parseInt(document.getElementById('forLoopInput').value);
+            var forLoopContent = "<h3>For Loop Table: " + tableForLoop + "</h3>";
+            for (i = 1; i <= length; i++) {
+                forLoopContent += i + " * " + tableForLoop + " = " + (i * tableForLoop) + "<br>";
+            }
+            document.getElementById('forLoopTable').innerHTML = forLoopContent;
+
+            // while-loop table
+            var tableWhileLoop = parseInt(document.getElementById('whileLoopInput').value);
+            i = 1;
+            var whileLoopContent = "<h3>While Loop Table: " + tableWhileLoop + "</h3>";
+            while (i <= length) {
+                whileLoopContent += i + " * " + tableWhileLoop + " = " + (i * tableWhileLoop) + "<br>";
+                i++;
+            }
+            document.getElementById('whileLoopTable').innerHTML = whileLoopContent;
+        }
+
+        function resetForm() {
+            document.getElementById('doWhileInput').value = '';
+            document.getElementById('forLoopInput').value = '';
+            document.getElementById('whileLoopInput').value = '';
+            document.getElementById('doWhileTable').innerHTML = '';
+            document.getElementById('forLoopTable').innerHTML = '';
+            document.getElementById('whileLoopTable').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>

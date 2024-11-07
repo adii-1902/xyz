@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>String Comparison</h2>
+        <input type="text" id="inputString1" placeholder="Enter string 1">
+        <input type="text" id="inputString2" placeholder="Enter string 2">
+
+        <button onclick="localCompare()">Compare using localCompare</button>
+        <button onclick="strictEquality()">Compare using strictEquality</button>
+        <button onclick="compareByLength()">Compare by Length</button>
+        <button style="background-color: red;" onclick="resetFields()">Reset</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="Exp4.js"></script>
+</body>
+
+</html>
+
+
+
+function localCompare() {
+    const string1 = document.getElementById('inputString1').value;
+    const string2 = document.getElementById('inputString2').value;
+    if (string1 && string2) {
+        const result = string1.localeCompare(string2);
+        displayResult(result === 0 ? "Strings are equal." : (result > 0 ? "String 1 is greater." : "String 2 is greater."));
+    } else {
+        displayResult("Please enter both strings.");
+    }
+}
+
+function strictEquality() {
+    const string1 = document.getElementById('inputString1').value;
+    const string2 = document.getElementById('inputString2').value;
+    if (string1 && string2) {
+        const result = (string1 === string2);
+        displayResult(result ? "Strings are strictly equal." : "Strings are not strictly equal.");
+    } else {
+        displayResult("Please enter both strings.");
+    }
+}
+
+function compareByLength() {
+    const string1 = document.getElementById('inputString1').value;
+    const string2 = document.getElementById('inputString2').value;
+    if (string1 && string2) {
+        if (string1.length > string2.length) {
+            displayResult("String 1 is longer.");
+        } else if (string1.length < string2.length) {
+            displayResult("String 2 is longer.");
+        } else {
+            displayResult("Both strings have the same length.");
+        }
+    } else {
+        displayResult("Please enter both strings.");
+    }
+}
+
+function displayResult(message) {
+    document.getElementById('result').innerText = message;
+}
+
+function resetFields() {
+    document.getElementById('inputString1').value = '';
+    document.getElementById('inputString2').value = '';
+    document.getElementById('result').innerText = '';
+}
